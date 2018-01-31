@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+//create konami code
+
+//create empty array to hold keys
+const pressed = [];
+const secretCode = 'philip';
+
+//listen for which keys are pressed
+window.addEventListener('keyup', (e) => {
+  pressed.push(e.key);
+  //limit number of items in array, starting from end with -
+  pressed.splice(-secretCode.length-1, pressed.length - secretCode.length);
+  //check if pressed = the secret code
+  if (pressed.join('').includes(secretCode)) {
+    console.log('You did it!');
+    cornify_add();
+  }
+
+  console.log(pressed);
+});
+</script>
+</body>
+</html>

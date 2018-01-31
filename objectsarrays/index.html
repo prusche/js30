@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script>
+    // start with strings, numbers and booleans
+    let age = 100;
+    let age2 = age;
+    // then
+    let age = 200;
+    //now, age = 200, but age2 still = 100; with arrays it is different
+    // Let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+    const team = players;
+    team[3] = "Lux";
+    //this changes the original array players because team was only a reference to it
+
+    //instead, we make a copy, this way:
+    const team2 = players.slice();
+    //another way to copy the array is:
+    const team3 = [].concat(players);
+    //or we can use teh ES6 spread way:
+    const team4 = [...players];
+    //or we do this:
+    const team5 = Array.from(players);
+
+    // The same thing goes for objects, let's say we have a person object
+    // with Objects
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+    // and think we make a copy: const captain = person --no, makes a reference
+
+    // how do we take a copy instead?
+    const captain2 = Object.assign({}, person, {age: 99, height: '6.0'});
+    //the above creates an empty object {}, grabs the one we are copying, and
+    //then changes whatever value we want
+
+    // We will hopefully soon see the object ...spread -- not available yet?
+    const captain3 = {...person}
+    // Things to note - this is only 1 level deep - both for Arrays and Objects.
+    const wes = {
+      name: 'wes',
+      age = 100,
+      social: {
+        twitter: '@wesbos',
+        facebook: 'wesbos.developer'
+      }
+    };
+    //can't handle arrays or objects within arrays/objects, can use the function clonedeep, but don't
+    // so on the above we try const dev = Object.assign({}, wes)
+    // then we change dev: dev.social.twitter = '@coolman', will also change wes
+    // there is a function called cloneDeep but not a good idea in general
+
+    // lodash has a cloneDeep method, but you should think twice before using it.
+    //one way, though he doesn't recommend it:
+    const dev2 = JSON.parse(JSON.stringify(wes));
+    //it converts the entire object to a string, then immediately parses it back into an object
+    //then you can do dev2.social.twitter = '@coolman' and it won't change wes
+
+  </script>
+
+</body>
+</html>

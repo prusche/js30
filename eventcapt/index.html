@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body class="bod">
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after { box-sizing: inherit; }
+  div {
+    width:100%;
+    padding:100px;
+  }
+  .one {
+    background: thistle;
+  }
+  .two {
+    background:mistyrose;
+  }
+  .three {
+    background:coral;
+  }
+</style>
+
+<button></button>
+<script>
+
+  const divs = document.querySelectorAll('div');
+
+  function logText(e) {
+    console.log(this.classList.value);
+    //if we want to make it stop the bubble and only perform the action
+    //on the first one, then:
+    //e.stopPropagation();
+  }
+
+  //when we click, it "captures" the outer most element first, then works its
+  //way down to the innermost. then it will "bubble" its way back up doing
+  //whatever function you asked (here logText)
+  divs.forEach(div => div.addEventListener('click', logText, {
+    //true here will make it act on the capture (down), not the bubble back up
+    capture: false, //default is false
+    //new option, once. listens for click, then unbinds itself, i.e. it
+    //removes the EventListener, note: ONLY runs once ever (for each div)
+    once: true //useful for store buttons
+  }));
+
+</script>
+</body>
+</html>

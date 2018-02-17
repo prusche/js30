@@ -1,6 +1,6 @@
 //the following is from the treehouse js course
 //might be useful for quizzes where a student
-//has to move an item up on a list 
+//has to move an item up on a list
 
 const toggleList = document.getElementById('toggleList');
 const listDiv = document.querySelector('.list');
@@ -52,6 +52,16 @@ listUl.addEventListener('click', (e) => {
         ul.insertBefore(li, prevLi);
       }
     }
+    //move an item down
+    if (e.target.className == 'down') {
+      let li = e.target.parentNode;
+      let nextLi = li.nextElementSibling;
+      let ul = li.parentNode;
+      if (nextLi) {
+        ul.insertBefore(nextLi, li);
+      }
+    }
+
   };
 });
 
